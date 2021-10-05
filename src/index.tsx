@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.css';
+import { ListTransactionsPage } from './pages/ListTransactionsPage';
+import { ThemeProvider } from './components/ThemeProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider>
+      <ListTransactionsPage />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
