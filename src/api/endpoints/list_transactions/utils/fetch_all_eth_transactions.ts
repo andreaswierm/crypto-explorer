@@ -7,6 +7,8 @@ type FetchAllETHRequestResponse = {
   from: string;
   insertedAt: number;
   state: string;
+  hash: string;
+  to: string;
 }[];
 
 export const fetchAllETHTransactions = async (): Promise<Transaction[]> => {
@@ -22,6 +24,8 @@ export const fetchAllETHTransactions = async (): Promise<Transaction[]> => {
       from: item.from,
       insertedAt: new Date(item.insertedAt),
       state: item.state,
+      hash: item.hash,
+      to: item.to,
     }
   });
 }
