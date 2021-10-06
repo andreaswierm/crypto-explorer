@@ -1,9 +1,10 @@
 import { uniqueId } from "lodash";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAPI } from "../../../api/hooks/useAPI";
 import { useFetcher } from "../../../fetcher/useFetcher";
 
 export const useListTransactionsPageController = () => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const api = useAPI();
 
   const {
@@ -19,11 +20,23 @@ export const useListTransactionsPageController = () => {
   });
 
   const transactions = useMemo(() => {
-    return data || [];
-  }, [data]);
+    const transactions = data || [];
 
-  return {
+    if (searchTerm.length !== 0) {
+      const searchTermLowerCase = searchTerm.toLocaleLowerCase();
+
+      return transactions.filter(transaction => {
+        return transaction.from.toLocaleLowerCase().includes(searchTermLowerCase);
+      });
+    }
+
+    return transactions;
+  }, [data, searchTerm]);
+
+  return useMemo(() => ({
     isLoading,
     transactions,
-  }
+    searchTerm,
+    setSearchTerm,
+  }), [isLoading, transactions, searchTerm, setSearchTerm]);
 }
