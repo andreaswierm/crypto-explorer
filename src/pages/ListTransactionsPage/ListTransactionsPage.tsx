@@ -12,6 +12,7 @@ import { Center } from "../../components/Center";
 import { CircularProgress } from "../../components/CircularProgress";
 import { useListTransactionsPageController } from "./hooks/useListTransactionsPageController";
 import { Coin } from "../../types/coins";
+import { useDateFormatter, useNumberFormatter } from "../../formatter";
 
 import {
   Table,
@@ -29,6 +30,14 @@ const coinLabels: Record<Coin, string> = {
 }
 
 export const ListTransactionsPage: FC = () => {
+  const {
+    hh_mm_dd_mm_yyyy,
+  } = useDateFormatter();
+
+  const {
+    currency,
+  } = useNumberFormatter();
+
   const {
     isLoading,
     transactions,
@@ -113,7 +122,7 @@ export const ListTransactionsPage: FC = () => {
 
                 <TableBody>
                   {transactions.map(transaction => (
-                    <TableRow key={transaction.hash}>
+                    <TableRow key={transaction.key}>
                       <TableCell>
                         {coinLabels[transaction.coin]}
                       </TableCell>
@@ -127,11 +136,11 @@ export const ListTransactionsPage: FC = () => {
                       </TableCell>
 
                       <TableCell>
-                        {transaction.amount}
+                        {currency(transaction.amount)}
                       </TableCell>
 
                       <TableCell>
-                        {transaction.insertedAt.toString()}
+                        {hh_mm_dd_mm_yyyy(transaction.insertedAt)}
                       </TableCell>
 
                       <TableCell>
