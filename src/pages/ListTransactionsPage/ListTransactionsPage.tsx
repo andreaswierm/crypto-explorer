@@ -41,6 +41,8 @@ export const ListTransactionsPage: FC = () => {
   const {
     isLoading,
     transactions,
+    searchTerm,
+    setSearchTerm,
   } = useListTransactionsPageController();
 
   if (isLoading) {
@@ -74,6 +76,8 @@ export const ListTransactionsPage: FC = () => {
 
                 <TextField
                   label="Search"
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
                 />
               </Row>
             </Toolbar>
