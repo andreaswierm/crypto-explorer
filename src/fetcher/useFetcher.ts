@@ -13,7 +13,7 @@ export const useFetcher = <T extends unknown>(fetcher: Fetcher<T>): FetcherRespo
     } catch(err) {
       setState(createErrorState(err));
     }
-  }, [setState]);
+  }, [setState, fetcher]);
 
   const refetch = useCallback(() => {
     setState(createFetchingState());
