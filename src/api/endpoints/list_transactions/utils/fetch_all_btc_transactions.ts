@@ -7,6 +7,8 @@ type FetchAllBTCRequestResponse = {
   from: string;
   insertedAt: number;
   state: string;
+  hash: string;
+  to: string;
 }[];
 
 export const fetchAllBTCTransactions = async (): Promise<Transaction[]> => {
@@ -17,11 +19,13 @@ export const fetchAllBTCTransactions = async (): Promise<Transaction[]> => {
   return jsonResult.map((item): Transaction => {
     return {
       amount: item.amount,
-      coin: item.coin,
+      coin: "BTC",
       description: item.description,
       from: item.from,
       insertedAt: new Date(item.insertedAt),
       state: item.state,
+      hash: item.hash,
+      to: item.to,
     }
   });
 }
