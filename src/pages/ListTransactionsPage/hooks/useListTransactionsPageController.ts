@@ -1,11 +1,12 @@
 import { uniqueId } from "lodash";
 import { useMemo, useState } from "react";
 import { useAPI } from "../../../api/hooks/useAPI";
+import { useTableSortController } from "../../../components/Table";
 import { useFetcher } from "../../../fetcher/useFetcher";
 
 export const useListTransactionsPageController = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const api = useAPI();
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const {
     isLoading,
@@ -19,8 +20,15 @@ export const useListTransactionsPageController = () => {
     }));
   });
 
+  const {
+    createSortHandler,
+    getDirection,
+    isActive,
+    data: sortedData,
+  } = useTableSortController(data || []);
+
   const transactions = useMemo(() => {
-    const transactions = data || [];
+    const transactions = sortedData || [];
 
     if (searchTerm.length !== 0) {
       const searchTermLowerCase = searchTerm.toLocaleLowerCase();
@@ -31,12 +39,15 @@ export const useListTransactionsPageController = () => {
     }
 
     return transactions;
-  }, [data, searchTerm]);
+  }, [sortedData, searchTerm]);
 
-  return useMemo(() => ({
+  return {
     isLoading,
     transactions,
     searchTerm,
     setSearchTerm,
-  }), [isLoading, transactions, searchTerm, setSearchTerm]);
+    isActive,
+    createSortHandler,
+    getDirection,
+  };
 }

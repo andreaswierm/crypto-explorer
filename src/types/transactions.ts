@@ -1,4 +1,4 @@
-import { Coin } from "../../../types/coins";
+import { Coin } from "./coins";
 
 export type Transaction = {
   amount: number;
