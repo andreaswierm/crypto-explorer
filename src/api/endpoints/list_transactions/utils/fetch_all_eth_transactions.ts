@@ -1,4 +1,4 @@
-import { Transaction } from "../types";
+import { Transaction } from "../../../../types/transactions";
 
 type FetchAllETHRequestResponse = {
   amount: number;

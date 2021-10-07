@@ -43,6 +43,9 @@ export const ListTransactionsPage: FC = () => {
     transactions,
     searchTerm,
     setSearchTerm,
+    isActive,
+    createSortHandler,
+    getDirection,
   } = useListTransactionsPageController();
 
   if (isLoading) {
@@ -87,38 +90,62 @@ export const ListTransactionsPage: FC = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      <TableSortLabel>
+                      <TableSortLabel
+                        active={isActive("coin")}
+                        direction={getDirection("coin")}
+                        onClick={createSortHandler("coin")}
+                      >
                         Coin
                       </TableSortLabel>
                     </TableCell>
 
                     <TableCell>
-                      <TableSortLabel>
+                      <TableSortLabel
+                        active={isActive("to")}
+                        direction={getDirection("to")}
+                        onClick={createSortHandler("to")}
+                      >
                         To
                       </TableSortLabel>
                     </TableCell>
 
                     <TableCell>
-                      <TableSortLabel>
+                      <TableSortLabel
+                        active={isActive("from")}
+                        direction={getDirection("from")}
+                        onClick={createSortHandler("from")}
+                      >
                         From
                       </TableSortLabel>
                     </TableCell>
 
                     <TableCell>
-                      <TableSortLabel>
+                      <TableSortLabel
+                        active={isActive("amount")}
+                        direction={getDirection("amount")}
+                        onClick={createSortHandler("amount")}
+                      >
                         Amount
                       </TableSortLabel>
                     </TableCell>
 
                     <TableCell>
-                      <TableSortLabel>
+                      <TableSortLabel
+                        active={isActive("insertedAt")}
+                        direction={getDirection("insertedAt")}
+                        onClick={createSortHandler("insertedAt")}
+                      >
                         Date
                       </TableSortLabel>
                     </TableCell>
 
                     <TableCell>
-                      <TableSortLabel>
-                        Status
+                      <TableSortLabel
+                        active={isActive("state")}
+                        direction={getDirection("state")}
+                        onClick={createSortHandler("state")}
+                      >
+                        State
                       </TableSortLabel>
                     </TableCell>
                   </TableRow>
